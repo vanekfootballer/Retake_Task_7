@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background: #e1ff00ce;
+            font-family: Arial;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 50px auto;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ full_name }}</h1>
+        <p>Город: {{ city }}</p>
+        <p>Telegram: <a href="https://t.me/{{ telegram }}" target="_blank">@{{ telegram }}</a></p>
+        <p>Университет: {{ university }}</p>
+        <p>Программа: {{ program }}</p>
+        <p>Курс: {{ course }}</p>
+
+        <h2>Репозитории GitHub:</h2>
+        <ul id="repo-list">
+            {% for repo in repos %}
+                <li><a href="{{ repo.html_url }}" target="_blank">{{ repo.name }}</a></li>
+            {% endfor %}
+        </ul>
+        
+        <button onclick="sendPost()">Отправить запрос</button>
+    </div>
+
+    <script>
+        function sendPost() {
+            fetch('/', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message));
+        }
+    </script>
+</body>
+</html>
